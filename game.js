@@ -22,11 +22,15 @@ let $playerTwoFinal = 0;
 
 const deckCount = () => {
   if (cardArray.length == 0) {
-    alert('Game is over! Player One\'s final score was ' + $playerOneFinal + ' and Player Two\'s final score was ' + $playerTwoFinal + ' !');
+    $playerOneFinal > $playerTwoFinal
+    alert('Player One\'s score is ' + $playerOneFinal + ' and has beaten Player Two\'s score of ' + $playerTwoFinal + '!')
+  } else if (cardArray.length == 0){
+    $playerTwoFinal > $playerOneFinal
+    alert('Player Two\'s score is ' + $playerTwoFinal + ' and has beaten Player One\'s score of ' + $playerOneFinal + '!')
   } else {
     return null;
+    }
   }
-}
 const cardGenerator = () => {
   let $randomizeNum = Math.floor(Math.random() * cardArray.length)
   console.log($randomizeNum);
