@@ -3,26 +3,11 @@ const queen = 12;
 const king = 13;
 const ace = 14;
 
-
-
-
 const cardArray = [2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,jack,jack,jack,jack,queen,queen,queen,queen,king,king,king,king,ace,ace,ace,ace];
 const randomlySelectedNum = [];
-// const $randomizeNum = Math.floor(Math.random() * cardArray.length)
 
 
 $(() => {
-
-  /////////////Objectives/////////////////////
-  //Need the deck to randomly produce 1 card - Done
-  //Then I need PlayerOne input area populate, submit a value - Done
-  //Based on their input, display a message that will say higher or lower than the value they input. - Done
-  //Display the PlayerOne input for them to guess again.
-  //If they guess correctly, move turn to PlayerTwo
-  //Else - subtract the difference from the card value and their 2nd guess.
-  //Keep that subtracted value in a global variable.
-  //Display PlayerTwo input and repeat the process.
-  /////////////Objectives/////////////////////
 
 const $button = $('#start');
 const $playerOne = $('#playerOne');
@@ -34,14 +19,21 @@ const $playerTwoSubmit = $('#playerTwoSubmit');
 let $secondGuess = false;
 let $playerOneFinal = 0;
 let $playerTwoFinal = 0;
-const cardNum = cardArray[$randomizeNum]
-//Card Generator is holding 1 value and not randomizing a new card
+
+const deckCount = () => {
+  if (cardArray.length == 0) {
+    alert('Game is over! Player One\'s final score was ' + $playerOneFinal + ' and Player Two\'s final score was ' + $playerTwoFinal + ' !');
+  } else {
+    return null;
+  }
+}
 const cardGenerator = () => {
-  console.log(cardNum);
   let $randomizeNum = Math.floor(Math.random() * cardArray.length)
+  console.log($randomizeNum);
+  let cardNum = cardArray[$randomizeNum]
   randomlySelectedNum.push(cardNum)
   cardArray.splice($randomizeNum,1);
-  console.log(randomlySelectedNum);
+  $secondGuess = false;
 }
 
 
@@ -49,8 +41,6 @@ $button.on('click', () => {
   //Need something to display image of the back of a card
   $playerTwo.hide()
   cardGenerator();
-  // console.log(cardNum);
-  // console.log(randomlySelectedNum);
   })
 
 const playerOneCardEval = () => {
@@ -71,11 +61,11 @@ const playerOneCardEval = () => {
 
   $playerOneSubmit.on('click', () => {
     const faceCardEval = playerOneCardEval();
-    // console.log(faceCardEval);
     console.log(randomlySelectedNum);
     console.log(randomlySelectedNum[randomlySelectedNum.length -1]);
   if (faceCardEval == randomlySelectedNum[randomlySelectedNum.length - 1]) {
     alert('You are correct!');
+    deckCount();
     $playerOne.hide();
     cardGenerator();
     $playerTwo.show();
@@ -88,10 +78,12 @@ const playerOneCardEval = () => {
       alert('The card is lower! You have one more guess!')
   } else if ($secondGuess) {
     let drinkTime = Math.abs(randomlySelectedNum[randomlySelectedNum.length -1] - faceCardEval)
-    alert('Your last guess was wrong! You need to drink for ' + drinkTime + ' seconds!')
+    alert('Your last guess was wrong! You need to drink for ' + drinkTime + ' seconds! Player Two, your turn.')
       $playerOneFinal += drinkTime;
+      deckCount();
       $playerOne.hide();
       cardGenerator();
+      console.log(randomlySelectedNum);
       $playerTwo.show();
       return $playerOneFinal;
   }
@@ -115,11 +107,11 @@ const playerOneCardEval = () => {
 
   $playerTwoSubmit.on('click', () => {
     const faceCardEval2 = playerTwoCardEval();
-    // console.log(faceCardEval);
     console.log(randomlySelectedNum);
     console.log(randomlySelectedNum[randomlySelectedNum.length -1]);
   if (faceCardEval2 == randomlySelectedNum[randomlySelectedNum.length - 1]) {
     alert('You are correct!');
+    deckCount();
     $playerTwo.hide();
     cardGenerator();
     $playerOne.show();
@@ -134,6 +126,7 @@ const playerOneCardEval = () => {
     let drinkTime = Math.abs(randomlySelectedNum[randomlySelectedNum.length -1] - faceCardEval2)
     alert('Your last guess was wrong! You need to drink for ' + drinkTime + ' seconds!')
       $playerTwoFinal += drinkTime;
+      deckCount();
       $playerTwo.hide();
       cardGenerator();
       $playerOne.show();
