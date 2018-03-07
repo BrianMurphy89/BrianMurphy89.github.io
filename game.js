@@ -42,7 +42,6 @@ const cardGenerator = () => {
 
 
 $button.on('click', () => {
-  //Need something to display image of the back of a card
   $playerTwo.hide()
   cardGenerator();
   })
