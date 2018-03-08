@@ -62,6 +62,7 @@ const cardGenerator = () => {
 $button.on('click', () => {
   $playerTwo.hide()
   cardGenerator();
+  $button.hide()
   })
 
 
