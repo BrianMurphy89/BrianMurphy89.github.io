@@ -19,13 +19,31 @@ const $playerTwoSubmit = $('#playerTwoSubmit');
 let $secondGuess = false;
 let $playerOneFinal = 0;
 let $playerTwoFinal = 0;
+const playerOneCardEval = () => {
+  if(typeof($playerOneInput.val()) === "number") {
+    return $playerOneInput.val();
+  }  else if ($playerOneInput.val().toLowerCase() == 'jack'){
+    return 11;
+  } else if ($playerOneInput.val().toLowerCase() == 'queen') {
+    return 12;
+  } else if ($playerOneInput.val().toLowerCase() == 'king') {
+    return 13;
+  } else if ($playerOneInput.val().toLowerCase() == 'ace') {
+    return 14;
+  } else {
+    return $playerOneInput.val();
+  }
+}
+const faceCardEval = playerOneCardEval();
+let drinkTime = Math.abs(randomlySelectedNum[randomlySelectedNum.length -1] - faceCardEval)
+
 
 const deckCount = () => {
   if (cardArray.length == 0) {
-    $playerOneFinal > $playerTwoFinal
+    $playerOneFinal < $playerTwoFinal
     alert('Player One\'s score is ' + $playerOneFinal + ' and has beaten Player Two\'s score of ' + $playerTwoFinal + '!')
   } else if (cardArray.length == 0){
-    $playerTwoFinal > $playerOneFinal
+    $playerTwoFinal < $playerOneFinal
     alert('Player Two\'s score is ' + $playerTwoFinal + ' and has beaten Player One\'s score of ' + $playerOneFinal + '!')
   } else {
     return null;
@@ -46,26 +64,36 @@ $button.on('click', () => {
   cardGenerator();
   })
 
-const playerOneCardEval = () => {
-  if(typeof($playerOneInput.val()) === "number") {
-    return $playerOneInput.val();
-  }  else if ($playerOneInput.val().toLowerCase() == 'jack'){
-    return 11;
-  } else if ($playerOneInput.val().toLowerCase() == 'queen') {
-    return 12;
-  } else if ($playerOneInput.val().toLowerCase() == 'king') {
-    return 13;
-  } else if ($playerOneInput.val().toLowerCase() == 'ace') {
-    return 14;
+
+
+const faceCardReturn = () => {
+  if (randomlySelectedNum[randomlySelectedNum.length - 1] == 11) {
+    return 'Jack';
+  } else if (randomlySelectedNum[randomlySelectedNum.length - 1] == 12) {
+    return 'Queen';
+  } else if (randomlySelectedNum[randomlySelectedNum.length - 1] == 13) {
+    return 'King';
+  } else if (randomlySelectedNum[randomlySelectedNum.length - 1] == 14) {
+    return 'Ace';
   } else {
-    return $playerOneInput.val();
+    return (randomlySelectedNum[randomlySelectedNum.length - 1])
   }
 }
 
-  $playerOneSubmit.on('click', () => {
-    const faceCardEval = playerOneCardEval();
-    console.log(randomlySelectedNum);
-    console.log(randomlySelectedNum[randomlySelectedNum.length -1]);
+const updateScore1 = () => {
+  console.log($playerOneFinal);
+  console.log(drinkTime);
+  $('#playerOneCurrentScore').text($playerOneFinal)
+}
+
+const updateScore2 = () => {
+  $('#playerTwoCurrentScore').text($playerTwoFinal)
+}
+
+const playerOneTurn = () => {
+  const faceCardEval = playerOneCardEval();
+  console.log(randomlySelectedNum);
+  console.log(randomlySelectedNum[randomlySelectedNum.length -1]);
   if (faceCardEval == randomlySelectedNum[randomlySelectedNum.length - 1]) {
     alert('You are correct!');
     deckCount();
@@ -81,15 +109,21 @@ const playerOneCardEval = () => {
       alert('The card is lower! You have one more guess!')
   } else if ($secondGuess) {
     let drinkTime = Math.abs(randomlySelectedNum[randomlySelectedNum.length -1] - faceCardEval)
-    alert('Your last guess was wrong! You need to drink for ' + drinkTime + ' seconds! Player Two, your turn.')
+    alert('Your last guess was wrong! Your card was ' + faceCardReturn() + '. You need to drink for ' + drinkTime + ' seconds! Player Two, your turn.')
       $playerOneFinal += drinkTime;
+      //write the code for the updated drinktime to show on webpage
       deckCount();
       $playerOne.hide();
       cardGenerator();
       console.log(randomlySelectedNum);
       $playerTwo.show();
+      updateScore1();
       return $playerOneFinal;
-  }
+    }
+}
+
+  $playerOneSubmit.on('click', () => {
+    playerOneTurn();
   })
 
   const playerTwoCardEval = () => {
@@ -108,7 +142,7 @@ const playerOneCardEval = () => {
     }
   }
 
-  $playerTwoSubmit.on('click', () => {
+  const playerTwoTurn = () => {
     const faceCardEval2 = playerTwoCardEval();
     console.log(randomlySelectedNum);
     console.log(randomlySelectedNum[randomlySelectedNum.length -1]);
@@ -127,13 +161,18 @@ const playerOneCardEval = () => {
       alert('The card is lower! You have one more guess!')
   } else if ($secondGuess) {
     let drinkTime = Math.abs(randomlySelectedNum[randomlySelectedNum.length -1] - faceCardEval2)
-    alert('Your last guess was wrong! You need to drink for ' + drinkTime + ' seconds!')
+    alert('Your last guess was wrong! Your card was ' + faceCardReturn() + '. You need to drink for ' + drinkTime + ' seconds!')
       $playerTwoFinal += drinkTime;
       deckCount();
       $playerTwo.hide();
       cardGenerator();
       $playerOne.show();
+      updateScore2();
       return $playerTwoFinal;
+    }
   }
+
+  $playerTwoSubmit.on('click', () => {
+    playerTwoTurn();
   })
 })

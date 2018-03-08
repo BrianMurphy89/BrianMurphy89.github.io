@@ -2,6 +2,19 @@
   border: solid red 1px;
 } */
 
+html {
+  height: 100%
+}
+
+body {
+  background-image:url(https://thumbs.dreamstime.com/b/process-party-spilled-beer-bottle-caps-leftover-chips-table-top-view-64523659.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+}
+
 #container {
   display: flex;
 }
@@ -16,6 +29,11 @@ h1 {
   margin-bottom: 0;
 }
 
+h2 {
+  color: black;
+  font-family: helvetica;
+}
+
 h4 {
   font-family: helvetica;
   text-align: center;
@@ -24,16 +42,25 @@ h4 {
 
 #start {
   margin: 0 auto;
-  border: 1px solid red;
   text-align: center;
 
 }
 
+#header {
+  background-color: rgba(128, 128, 128, 0.7);
+}
+
 #playerOne {
-  border: 1px solid blue;
   display: inline-block;
   width: 50%;
   flex-grow: 1;
+  border: 2px solid black;
+  background-color: rgba(128, 128, 128, 0.7);
+}
+
+#input-field1 {
+  display: flex;
+  justify-content: center;
 }
 
 #playerTwo {
@@ -41,5 +68,30 @@ h4 {
   float: right;
   flex-grow: 1;
   width: 50%;
-  border: 1px solid green;
+  border: 2px solid black;
+  background-color: rgba(128, 128, 128, 0.7);
+}
+
+#input-field2 {
+  display: flex;
+  justify-content: center;
+}
+
+#score-container {
+  display: flex;
+  background-color: rgba(128, 128, 128, 0.7);
+}
+
+#playerOne-score {
+  display: inline-block;
+  width: 50%;
+  flex-grow: 1;
+  text-align: center;
+}
+
+#playerTwo-score{
+  display: inline-block;
+  width: 50%;
+  flex-grow: 1;
+  text-align: center;
 }

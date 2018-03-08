@@ -8,22 +8,42 @@
     <title>Higher/Lower Game!</title>
   </head>
   <body>
-    <h1>Higher or Lower!</h1>
-    <h4>Make Sure that Beer is Full!</h4>
-    <div id="button-container">
-      <button id="start">Click to Start!</button>
-      </div>
+    <div id="header">
+      <h1>Higher or Lower!</h1>
+      <h4>Make Sure that Beer is Full!</h4>
+      <div id="button-container">
+        <button id="start">Click to Start!</button>
+        </div>
+    </div>
+
       <div id="container">
-        <div id="playerOne">
+    <div id="playerOne">
       <h4>Player One</h4>
-      <input id="playerOneInput"type="text" placeholder="Guess A Card!">
-      <button id="playerOneSubmit">Submit</button>
+        <div id="input-field1">
+          <input id="playerOneInput"type="text" onfocus="this.value=''" placeholder="Guess A Card!">
+          <button id="playerOneSubmit">Submit</button>
+        </div>
       </div>
+
     <div id="playerTwo">
       <h4>Player Two</h4>
-      <input id="playerTwoInput" type="text" placeholder="Guess A Card!">
-      <button id="playerTwoSubmit">Submit</button>
+        <div id="input-field2">
+          <input id="playerTwoInput" type="text" onfocus="this.value = ''" placeholder="Guess A Card!">
+          <button id="playerTwoSubmit">Submit</button>
+        </div>
       </div>
     </div>
+
+    <div id="score-container">
+      <div id="playerOne-score">
+        <h2>Player One's Score</h2>
+        <h3 id="playerOneCurrentScore">0</h3>
+      </div>
+      <div id="playerTwo-score">
+        <h2>Player Two's Score</h2>
+        <h3 id="playerTwoCurrentScore">0</h3>
+      </div>
+    </div>
+
   </body>
 </html>
